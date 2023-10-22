@@ -1,0 +1,26 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: An AWS Lambda application that reads messages from SQS and sends to SNS.
+Resources:
+  function:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: s3://vadim-volkov-s3-bucket/java/174642d6a9b051a9d4e3531da7e63521
+      Handler: com.epam.volvadvit.lambda.handler.ImageProcessHandler
+      FunctionName: cloudx-UploadsNotificationFunction
+      Runtime: java8
+      Description: Java function
+      MemorySize: 512
+      Timeout: 10
+      Policies:
+      - AWSLambda_FullAccess
+      - AWSLambdaSQSQueueExecutionRole
+      - AmazonSNSFullAccess
+      - AmazonSQSFullAccess
+      - CloudWatchLogsFullAccess
+      Tracing: Active
+      AutoPublishAlias: live
+      DeploymentPreference:
+        Type: AllAtOnce
+    Metadata:
+      SamResourceId: function
